@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 class User
 {
@@ -8,6 +9,7 @@ protected:
     int age;
 
 public:
+    User(){};
     User(string n, string g, int a);
     void Set_name(string n);
     void Set_gender(string n);
@@ -16,24 +18,34 @@ public:
     string Get_gender();
     int Get_age();
 };
-
 class management : private User
 {
 private:
-    int id;
+    string adminuser = "ali";
+    string adminpass = "ali";
+    int cnic;
     string username;
     string password;
 
 public:
+    management(){};
     management(string n, string g, int a, int i, string un, string pd);
-    void Set_id(int n);
+    void Set_name(string n);
+    void Set_gender(string n);
+    void Set_age(int n);
+    void Set_cnic(int n);
     void Set_username(string n);
     void Set_password(string n);
-    int Get_id();
+    string Get_name();
+    string Get_gender();
+    int Get_age();
+    int Get_cnic();
     string Get_username();
     string Get_password();
+    void Creataccount();
+    void loginaccount(string user, string pass);
+    void display_available_management();
 };
-
 class customer : private User
 {
 private:
@@ -53,7 +65,6 @@ public:
     int get_phone_number();
     float get_advance_payment();
 };
-
 class boat
 {
 protected:
@@ -85,8 +96,23 @@ private:
 
 public:
     cargo_ship(string mak, int mod, string vart, float rnt, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp);
+    void set_cargo_capacity(int n);
+    void set_cargo_type(string n);
+    void set_size(int n);
+    void set_container_capacity(int n);
+    void set_flag_and_registration(string n);
+    void set_speed(int n);
+    void set_range(int n);
+    void set_details(string n);
+    int get_cargo_capacity();
+    string get_cargo_type();
+    int get_size();
+    int get_container_capacity();
+    string get_flag_and_registration();
+    int get_speed();
+    int get_range();
+    string get_details();
 };
-
 class yatch : private boat
 {
 private:
@@ -106,40 +132,14 @@ public:
     void set_speed(int n);
     void set_crew_capacity(int n);
 };
-void Management_page()
-{
-    int opt;
-    do
-    {
-        system("cls");
-        cout << "\n\t\t\t------------------------------------------" << endl;
-        cout << "\t\t\t*****Welcome to management login page*****" << endl;
-        cout << "\t\t\t------------------------------------------" << endl;
-        cout << "1.Login to existing account" << endl;
-        cout << "2.Create an account" << endl;
-        cout << "3.Enter your option or press 3 to exit...";
-        cin >> opt;
-    } while (opt != 3);
-}
-void Private_reservations()
-{
-    int opt;
-    do
-    {
-        system("cls");
-        cout << "\t\t\t--------------------------" << endl;
-        cout << "\t\t\t***Private reservations***" << endl;
-        cout << "\t\t\t--------------------------" << endl;
-        cout << "\n1).Make reservation" << endl;
-        cout << "2).Available yatch" << endl;
-        cout << "3).Available Dates" << endl;
-        cout << "Enter your option or press 4 to exit..." << endl;
-        cin >> opt;
-    } while (opt != 4);
-}
+int i = 0;
+int count = 0;
 int main()
 {
+    management m[10];
+    string user, pass;
     int opt;
+    char choice;
     do
     {
         system("cls");
@@ -147,21 +147,101 @@ int main()
         cout << "\t\t******************Welcome to Ships reservation and management system******************" << endl;
         cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 
-        cout << "\n\t\t1.Management login" << endl;
-        cout << "\t\t2.Private Reservations" << endl;
-        cout << "\t\t3.Internamional Travels" << endl;
-        cout << "\tEnter your option or press 4 to qxit...";
+        cout << "\n\t\t1).Management login" << endl;
+        cout << "\t\t2).Private Reservations" << endl;
+        cout << "\t\t3).Internamional Travels" << endl;
+        cout << "\t\t4).cargo shipments" << endl;
+        cout << "\tEnter your option or press 5 to qxit...";
         cin >> opt;
         switch (opt)
         {
         case 1:
-            Management_page();
+            if (i <= count)
+            {
+                do
+                {
+                    system("cls");
+                    cout << "\n\t\t\t------------------------------------------" << endl;
+                    cout << "\t\t\t*****Welcome to management login page*****" << endl;
+                    cout << "\t\t\t------------------------------------------" << endl;
+                    cout << "1).Login to existing account" << endl;
+                    cout << "2).Create an account" << endl;
+                    cout << "3).Details of available Officers" << endl;
+                    cout << "Enter your option or press 4 to exit...";
+                    cin >> opt;
+                    switch (opt)
+                    {
+                    case 1:
+                        system("cls");
+                        cout << "\n\t\t\t---------------------" << endl;
+                        cout << "\t\t\tWelcome to login page" << endl;
+                        cout << "\t\t\t---------------------" << endl;
+
+                        cout << "\t\tEnter your username: ";
+                        cin >> user;
+                        cout << "\n\t\tEnter your password: ";
+                        cin >> pass;
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (user == m[i].Get_username() && pass == m[i].Get_password())
+                            {
+                                m[i].loginaccount(user, pass);
+                            }
+                            else
+                            {
+                                do
+                                {
+                                    cout << "\n\t\t-----------------------------" << endl;
+                                    cout << "\t\tInvalid username or password!" << endl;
+                                    cout << "\t\t-----------------------------" << endl;
+                                    cout << "\n\t\tPress 'q' to exit...";
+                                    cin >> choice;
+                                } while (choice != 'q');
+                            }
+                        }
+                        break;
+                    case 2:
+                        m[i].Creataccount();
+                        i++;
+                        count++;
+                        break;
+                    case 3:
+                        system("cls");
+                        cout << "\n\t\t\t---------------------------------------" << endl;
+                        cout << "\t\t\t******management officers details******" << endl;
+                        cout << "\t\t\t---------------------------------------" << endl;
+                        do
+                        {
+                            for (int i = 0; i < count; i++)
+                            {
+                                m[i].display_available_management();
+                            }
+                            cout << "\t\tPress 'q' to exit...";
+                            cin >> choice;
+                        } while (choice != 'q');
+
+                        break;
+                    }
+                } while (opt != 4);
+            }
+
             break;
         case 2:
-            Private_reservations();
+            do
+            {
+                system("cls");
+                cout << "\t\t\t--------------------------" << endl;
+                cout << "\t\t\t***Private reservations***" << endl;
+                cout << "\t\t\t--------------------------" << endl;
+                cout << "\n1).Make reservation" << endl;
+                cout << "2).Available yatch" << endl;
+                cout << "3).Available Dates" << endl;
+                cout << "Enter your option or press 4 to exit...";
+                cin >> opt;
+            } while (opt != 4);
+            break;
         }
-
-    } while (opt != 4);
+    } while (opt != 5);
 }
 
 User::User(string n, string g, int a)
@@ -170,15 +250,229 @@ User::User(string n, string g, int a)
     gender = g;
     age = a;
 }
+// Management class functions
 management::management(string n, string g, int a, int i, string un, string pd) : User(n, g, a)
 {
     name = n;
     gender = g;
     age = a;
-    id = i;
+    cnic = i;
     username = un;
     password = pd;
 }
+void management::Set_name(string n)
+{
+    name = n;
+}
+void management::Set_gender(string n)
+{
+    gender = n;
+}
+void management::Set_age(int n)
+{
+    age = n;
+}
+void management::Set_cnic(int n)
+{
+    cnic = n;
+}
+void management::Set_username(string n)
+{
+    username = n;
+}
+void management::Set_password(string n)
+{
+    password = n;
+}
+string management::Get_name()
+{
+    return name;
+}
+string management::Get_gender()
+{
+    return gender;
+}
+int management::Get_age()
+{
+    return age;
+}
+int management::Get_cnic()
+{
+    return cnic;
+}
+string management::Get_username()
+{
+    return username;
+}
+string management::Get_password()
+{
+    return password;
+}
+void management::Creataccount()
+{
+    int ag, i;
+    string nam, gen, user, pass;
+    string adpass, aduser;
+    char opt;
+
+    system("cls");
+    cout << "\t\t\t\t------------------------" << endl;
+    cout << "\t\t\t\t***Create New account***" << endl;
+    cout << "\t\t\t\t------------------------" << endl;
+    cout << "\n\n\t\t\tEnter admin username: ";
+    cin >> aduser;
+    cout << "\t\t\tEnter admin password: ";
+    cin >> adpass;
+    if (adpass == adminpass && aduser == adminuser)
+    {
+
+        cout << "\n\t\t\t\t------------------------------------------------" << endl;
+        cout << "\t\t\t\t***Welcome to new management account creation***" << endl;
+        cout << "\t\t\t\t------------------------------------------------" << endl;
+
+        cout << "\n\t\tEnter your name: ";
+        cin >> nam;
+        Set_name(nam);
+        cout << "\t\tEnter your gender(male/female): ";
+        cin >> gen;
+        Set_gender(gen);
+        cout << "\t\tEnter your age: ";
+        cin >> ag;
+        Set_age(ag);
+        cout << "\t\tEnter your cnic: ";
+        cin >> i;
+        Set_cnic(i);
+        cout << "\t\tCreate a username: ";
+        cin >> user;
+        Set_username(user);
+        cout << "\t\tCreate password: ";
+        cin >> pass;
+        Set_password(pass);
+        do
+        {
+            cout << "\n\t\t\t\t------------------------------------" << endl;
+            cout << "\t\t\t\tYour account is created sucessfuilly" << endl;
+            cout << "\t\t\t\t------------------------------------" << endl;
+            cout << "\t\tPress 'q' to exit...";
+            cin >> opt;
+        } while (opt != 'q');
+    }
+    else
+    {
+        do
+        {
+            cout << "\n\t\tUsrename or password is wrong please enter correct password\npress 'q' to exit..." << endl;
+            cin >> opt;
+        } while (opt != 'q');
+    }
+}
+void management::loginaccount(string user, string pass)
+{
+    char choice;
+    int ag, i, opt;
+    string nam, gen;
+
+    do
+    {
+        system("cls");
+        cout << "\n\t\t\t-----------------------" << endl;
+        cout << "\t\t\tWelcome to your account" << endl;
+        cout << "\t\t\t-----------------------" << endl;
+
+        cout << "\n\t\t1).View details" << endl;
+        cout << "\t\t2).Change username" << endl;
+        cout << "\t\t3).Change password" << endl;
+        cout << "Enter your option or press 4 to exit...";
+        cin >> opt;
+
+        switch (opt)
+        {
+        case 1:
+            do
+            {
+                cout << "\n\t\t\t------------------" << endl;
+                cout << "\t\t\tManagement details" << endl;
+                cout << "\t\t\t------------------" << endl;
+                cout << "\tName: " << name << endl;
+                cout << "\tAge: " << age << endl;
+                cout << "\tGender: " << gender << endl;
+                cout << "\tCNIC: " << cnic << endl;
+                cout << "\tUsername: " << username << endl;
+                cout << "\tPassword: " << password << endl;
+                cout << "\nPress 'q' to exit...";
+                cin >> choice;
+            } while (choice != 'q');
+            break;
+        case 2:
+            cout << "\n\t\tEnter your current username: ";
+            cin >> user;
+            if (user == username)
+            {
+                cout << "\tEnter your new username: ";
+                cin >> user;
+                Set_username(user);
+                do
+                {
+                    cout << "\n\t\t\t-------------------------------------" << endl;
+                    cout << "\t\t\tusername has been updated sucessfully" << endl;
+                    cout << "\t\t\t-------------------------------------" << endl;
+                    cout << "\t\tPress 'q' to exit..." << endl;
+                    cin >> choice;
+                } while (choice != 'q');
+            }
+            else
+            {
+                do
+                {
+                    cout << "Invalid username!\nPress 'q' to exit...";
+                    cin >> choice;
+
+                } while (choice != 'q');
+            }
+
+            break;
+        case 3:
+            cout << "\n\t\tEnter your current password: ";
+            cin >> pass;
+            if (pass == password)
+            {
+                cout << "\tEnter your new password: ";
+                cin >> pass;
+                Set_password(pass);
+                do
+                {
+                    cout << "\n\t\t\t-------------------------------------" << endl;
+                    cout << "\t\t\tpassword has been updated sucessfully" << endl;
+                    cout << "\t\t\t-------------------------------------" << endl;
+                    cout << "\t\tPress 'q' to exit..." << endl;
+                    cin >> choice;
+                } while (choice != 'q');
+            }
+            else
+            {
+                do
+                {
+                    cout << "Invalid password!\nPress 'q' to exit...";
+                    cin >> choice;
+
+                } while (choice != 'q');
+            }
+            break;
+        }
+    } while (opt != 4);
+}
+
+void management::display_available_management()
+{
+    cout << "\n\t\t\t--------------------" << endl;
+    cout << "\t\t\tName: " << name << endl;
+    cout << "\t\t\tUsername: " << username << endl;
+    cout << "\t\t\tGender: " << gender << endl;
+    cout << "\t\t\tAge: " << age << endl;
+    cout << "\t\t\tCNIC: " << cnic << endl;
+    cout << "\t\t\t--------------------" << endl;
+}
+
 customer::customer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt) : User(n, g, a)
 {
     name = n;
