@@ -143,15 +143,21 @@ int main()
     do
     {
         system("cls");
-        cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << "\t\t******************Welcome to Ships reservation and management system******************" << endl;
-        cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
-
-        cout << "\n\t\t1).Management login" << endl;
-        cout << "\t\t2).Private Reservations" << endl;
-        cout << "\t\t3).Internamional Travels" << endl;
-        cout << "\t\t4).cargo shipments" << endl;
-        cout << "\tEnter your option or press 5 to qxit...";
+        cout << "\t       ---------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "\t       |                                                                                                                                     |" << endl;
+        cout << "\t       |                      ******************Welcome to Ships reservation and management system******************                         |" << endl;
+        cout << "\t       |                                                                                                                                     |" << endl;
+        cout << "\t       ---------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << endl;
+        cout << "\t\t                    ----------------------------------------------" << endl;
+        cout << "\t\t                   |                                              |" << endl;
+        cout << "\t\t                   |   1). Management login                       |" << endl;
+        cout << "\t\t                   |   2). Private Reservations                   |" << endl;
+        cout << "\t\t                   |   3). Internamional Travels                  |" << endl;
+        cout << "\t\t                   |   4). cargo shipments                        |" << endl;
+        cout << "\t\t                   |                                              |" << endl;
+        cout << "\t\t                    ----------------------------------------------" << endl;
+        cout << "\n\t\t                   Enter your option or press 5 to qxit...";
         cin >> opt;
         switch (opt)
         {
