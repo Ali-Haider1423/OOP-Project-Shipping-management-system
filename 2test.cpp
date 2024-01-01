@@ -162,74 +162,72 @@ int main()
         switch (opt)
         {
         case 1:
-            if (i <= count)
+            do
             {
-                do
-                {
-                    system("cls");
-                    cout << "\n\t\t\t------------------------------------------" << endl;
-                    cout << "\t\t\t*****Welcome to management login page*****" << endl;
-                    cout << "\t\t\t------------------------------------------" << endl;
-                    cout << "1).Login to existing account" << endl;
-                    cout << "2).Create an account" << endl;
-                    cout << "3).Details of available Officers" << endl;
-                    cout << "Enter your option or press 4 to exit...";
-                    cin >> opt;
-                    switch (opt)
-                    {
-                    case 1:
-                        system("cls");
-                        cout << "\n\t\t\t---------------------" << endl;
-                        cout << "\t\t\tWelcome to login page" << endl;
-                        cout << "\t\t\t---------------------" << endl;
+                system("cls");
 
-                        cout << "\t\tEnter your username: ";
-                        cin >> user;
-                        cout << "\n\t\tEnter your password: ";
-                        cin >> pass;
+                cout << "\n\t\t\t------------------------------------------" << endl;
+                cout << "\t\t\t*****Welcome to management login page*****" << endl;
+                cout << "\t\t\t------------------------------------------" << endl;
+                cout << "1).Login to existing account" << endl;
+                cout << "2).Create an account" << endl;
+                cout << "3).Details of available Officers" << endl;
+                cout << "Enter your option or press 4 to exit...";
+                cin >> opt;
+                switch (opt)
+                {
+                case 1:
+                    system("cls");
+                    cout << "\n\t\t\t---------------------" << endl;
+                    cout << "\t\t\tWelcome to login page" << endl;
+                    cout << "\t\t\t---------------------" << endl;
+
+                    cout << "\t\tEnter your username: ";
+                    cin >> user;
+                    cout << "\n\t\tEnter your password: ";
+                    cin >> pass;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (user == m[i].Get_username() && pass == m[i].Get_password())
+                        {
+                            m[i].loginaccount(user, pass);
+                        }
+                        else
+                        {
+                            do
+                            {
+                                cout << "\n\t\t-----------------------------" << endl;
+                                cout << "\t\tInvalid username or password!" << endl;
+                                cout << "\t\t-----------------------------" << endl;
+                                cout << "\n\t\tPress 'q' to exit...";
+                                cin >> choice;
+                            } while (choice != 'q');
+                        }
+                    }
+                    break;
+                case 2:
+                    m[i].Creataccount();
+                    i++;
+                    count++;
+                    break;
+                case 3:
+                    system("cls");
+                    cout << "\n\t\t\t---------------------------------------" << endl;
+                    cout << "\t\t\t******management officers details******" << endl;
+                    cout << "\t\t\t---------------------------------------" << endl;
+                    do
+                    {
                         for (int i = 0; i < count; i++)
                         {
-                            if (user == m[i].Get_username() && pass == m[i].Get_password())
-                            {
-                                m[i].loginaccount(user, pass);
-                            }
-                            else
-                            {
-                                do
-                                {
-                                    cout << "\n\t\t-----------------------------" << endl;
-                                    cout << "\t\tInvalid username or password!" << endl;
-                                    cout << "\t\t-----------------------------" << endl;
-                                    cout << "\n\t\tPress 'q' to exit...";
-                                    cin >> choice;
-                                } while (choice != 'q');
-                            }
+                            m[i].display_available_management();
                         }
-                        break;
-                    case 2:
-                        m[i].Creataccount();
-                        i++;
-                        count++;
-                        break;
-                    case 3:
-                        system("cls");
-                        cout << "\n\t\t\t---------------------------------------" << endl;
-                        cout << "\t\t\t******management officers details******" << endl;
-                        cout << "\t\t\t---------------------------------------" << endl;
-                        do
-                        {
-                            for (int i = 0; i < count; i++)
-                            {
-                                m[i].display_available_management();
-                            }
-                            cout << "\t\tPress 'q' to exit...";
-                            cin >> choice;
-                        } while (choice != 'q');
+                        cout << "\t\tPress 'q' to exit...";
+                        cin >> choice;
+                    } while (choice != 'q');
 
-                        break;
-                    }
-                } while (opt != 4);
-            }
+                    break;
+                }
+            } while (opt != 4);
 
             break;
         case 2:
@@ -467,7 +465,6 @@ void management::loginaccount(string user, string pass)
         }
     } while (opt != 4);
 }
-
 void management::display_available_management()
 {
     cout << "\n\t\t\t--------------------" << endl;
