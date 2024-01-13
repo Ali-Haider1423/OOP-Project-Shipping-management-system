@@ -235,17 +235,6 @@ int main()
                             m[i].loginaccount(user, pass);
                             break;
                         }
-                        else
-                        {
-                            do
-                            {
-                                cout << "\n\t\t-----------------------------" << endl;
-                                cout << "\t\tInvalid username or password!" << endl;
-                                cout << "\t\t-----------------------------" << endl;
-                                cout << "\n\t\tPress 'q' to exit...";
-                                cin >> choice;
-                            } while (choice != 'q');
-                        }
                     }
                     break;
                 case 2:
@@ -312,16 +301,31 @@ int main()
                             cin >> make;
                             y[yc].set_make(make);
                             cout << "\t\tEnter model of yatch: ";
-                            cin >> model;
+                            while (!(cin >> model))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             y[yc].set_model(model);
                             cout << "\t\tEnter varient of yatch: ";
                             cin >> varient;
                             y[yc].set_varient(varient);
                             cout << "\t\tEnter per_day_rent of yatch: ";
-                            cin >> per_day_rent;
+                            while (!(cin >> per_day_rent))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             y[yc].set_pdr(per_day_rent);
                             cout << "\t\tEnter size of yatch: ";
-                            cin >> size;
+                            while (!(cin >> size))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             y[yc].set_size(size);
                             cout << "\t\tEnter design of yatch: ";
                             cin >> design;
@@ -330,26 +334,25 @@ int main()
                             cin >> Material;
                             y[yc].set_material(Material);
                             cout << "\t\tEnter speed of yatch: ";
-                            cin >> speed;
+                            while (!(cin >> speed))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             y[yc].set_speed(speed);
                             cout << "\t\tEnter Crew_Capacity of yatch: ";
-                            cin >> Crew_Capacity;
+                            while (!(cin >> Crew_Capacity))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             y[yc].set_crew_capacity(Crew_Capacity);
                             cout << "\t\tEnter Flag_and_Registration of yatch: ";
                             cin >> Flag_and_Registration;
                             y[yc].set_Flag_and_Registration(Flag_and_Registration);
                             yc++;
-                        }
-                        else
-                        {
-                            do
-                            {
-                                cout << "\n\t\t-----------------------------" << endl;
-                                cout << "\t\tInvalid username or password!" << endl;
-                                cout << "\t\t-----------------------------" << endl;
-                                cout << "\n\t\tPress 'q' to exit...";
-                                cin >> choice;
-                            } while (choice != 'q');
                         }
                     }
                     break;
