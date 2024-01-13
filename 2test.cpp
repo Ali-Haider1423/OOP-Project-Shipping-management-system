@@ -74,17 +74,13 @@ protected:
     string make;
     int model;
     string varient;
-    float per_day_rent;
 
 public:
-    boat(string n, int m, string r, float pdr);
-    void set_make(string n);
-    void set_model(int n);
-    void set_varient(string n);
-    string get_make();
-    int get_model();
-    string get_varient();
+    boat(){};
+    boat(string n, int m, string r);
+    // virtual void display_all_yatchs() = 0;
 };
+
 class cargo_ship : private boat
 {
 private:
@@ -98,7 +94,7 @@ private:
     string details;
 
 public:
-    cargo_ship(string mak, int mod, string vart, float rnt, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp);
+    cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp);
     void set_cargo_capacity(int n);
     void set_cargo_type(string n);
     void set_size(int n);
@@ -116,33 +112,51 @@ public:
     int get_range();
     string get_details();
 };
-class yatch : private boat
+class yatch : protected boat
 {
 private:
+    float per_day_rent;
     int size;        // In feets and inches
     string design;   // Modern, classic, expedition, or custom design styles.
     string Material; // Common materials include fiberglass, aluminum, steel, or a combination
     int speed;       // in KMPH
     int Crew_Capacity;
     string Flag_and_Registration; // The country under whose flag the yacht is registered.
-    string discription;
 
 public:
-    yatch(string mak, int mod, string vart, float rnt, int s, string dsg, string mtr, int spd, int ccapacity, string reg, string dicp);
+    yatch(){};
+    yatch(string mak, int mod, string vart, float rnt, int s, string dsg, string mtr, int spd, int ccapacity, string reg);
+    void set_make(string n);
+    void set_pdr(float n);
+    void set_model(int n);
+    void set_varient(string n);
     void set_size(int n);
     void set_design(string n);
     void set_material(string n);
     void set_speed(int n);
     void set_crew_capacity(int n);
+    void set_Flag_and_Registration(string n);
+    string get_make();
+    int get_model();
+    string get_varient();
 };
+
 int i = 0;
 int count = 0;
+int yc = 0;
 int main()
 {
-    management m[10];
-    string user, pass;
     int opt;
     char choice;
+
+    management m[10];
+    string user, pass;
+
+    yatch y[100];
+    int size, speed, Crew_Capacity, model;
+    string design, Material, Flag_and_Registration, discription, make, varient;
+    float per_day_rent;
+
     do
     {
         system("cls");
@@ -276,11 +290,40 @@ int main()
                     {
                         if (user == m[i].Get_username() && pass == m[i].Get_password())
                         {
-                            do
-                            {
-                                cout << "bla" << endl;
-                                cin >> choice;
-                            } while (choice != 'q');
+                            cout << "\n\n\t\t\t\t\t\t-------------------" << endl;
+                            cout << "\t\t\t\t\t\t***Add new Yatch***" << endl;
+                            cout << "\t\t\t\t\t\t-------------------" << endl;
+                            cout << "\n\n\t\tEnter make of yatch: ";
+                            cin >> make;
+                            y[yc].set_make(make);
+                            cout << "\t\tEnter model of yatch: ";
+                            cin >> model;
+                            y[yc].set_model(model);
+                            cout << "\t\tEnter varient of yatch: ";
+                            cin >> varient;
+                            y[yc].set_varient(varient);
+                            cout << "\t\tEnter per_day_rent of yatch: ";
+                            cin >> per_day_rent;
+                            y[yc].set_pdr(per_day_rent);
+                            cout << "\t\tEnter size of yatch: ";
+                            cin >> size;
+                            y[yc].set_size(size);
+                            cout << "\t\tEnter design of yatch: ";
+                            cin >> design;
+                            y[yc].set_design(design);
+                            cout << "\t\tEnter Material of yatch: ";
+                            cin >> Material;
+                            y[yc].set_material(Material);
+                            cout << "\t\tEnter speed of yatch: ";
+                            cin >> speed;
+                            y[yc].set_speed(speed);
+                            cout << "\t\tEnter Crew_Capacity of yatch: ";
+                            cin >> Crew_Capacity;
+                            y[yc].set_crew_capacity(Crew_Capacity);
+                            cout << "\t\tEnter Flag_and_Registration of yatch: ";
+                            cin >> Flag_and_Registration;
+                            y[yc].set_Flag_and_Registration(Flag_and_Registration);
+                            yc++;
                         }
                         else
                         {
@@ -322,11 +365,6 @@ string management::Get_adusername()
 {
     return adminuser;
 }
-string management::Get_adpass()
-{
-    return adminpass;
-}
-string Get_adpassword();
 void management::Set_name(string n)
 {
     name = n;
@@ -563,18 +601,14 @@ customer::customer(string n, string g, int a, string Padress, string Clocation, 
     phone_number = pnum;
     advance_payment = adpaymt;
 }
-boat::boat(string n, int m, string r, float pdr)
+boat::boat(string n, int m, string r)
 {
     make = n;
     model = m;
     varient = r;
-    per_day_rent = pdr;
 }
-yatch::yatch(string mak, int mod, string vart, float rnt, int s, string dsg, string mtr, int spd, int ccapacity, string reg, string dicp) : boat(mak, mod, vart, rnt)
+yatch::yatch(string mak, int mod, string vart, float rnt, int s, string dsg, string mtr, int spd, int ccapacity, string reg) : boat(mak, mod, vart)
 {
-    make = mak;
-    model = mod;
-    varient = vart;
     per_day_rent = rnt;
     size = s;
     design = dsg;
@@ -582,14 +616,65 @@ yatch::yatch(string mak, int mod, string vart, float rnt, int s, string dsg, str
     speed = spd;
     Crew_Capacity = ccapacity;
     Flag_and_Registration = reg;
-    discription = dicp;
 }
-cargo_ship::cargo_ship(string mak, int mod, string vart, float rnt, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart, rnt)
+void yatch::set_make(string n)
+{
+    make = n;
+}
+void yatch::set_model(int n)
+{
+    model = n;
+}
+void yatch::set_varient(string n)
+{
+    varient = n;
+}
+string yatch::get_make()
+{
+    return make;
+}
+int yatch::get_model()
+{
+    return model;
+}
+string yatch::get_varient()
+{
+    return varient;
+}
+void yatch::set_size(int n)
+{
+    size = n;
+}
+void yatch::set_design(string n)
+{
+    design = n;
+}
+void yatch::set_material(string n)
+{
+    Material = n;
+}
+void yatch::set_speed(int n)
+{
+    speed = n;
+}
+void yatch::set_crew_capacity(int n)
+{
+    Crew_Capacity = n;
+}
+void yatch::set_pdr(float n)
+{
+    per_day_rent = n;
+}
+void yatch::set_Flag_and_Registration(string n)
+{
+    Flag_and_Registration = n;
+}
+
+cargo_ship::cargo_ship(string mak, int mod, string vart,int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
 {
     make = mak;
     model = mod;
     varient = vart;
-    per_day_rent = rnt;
     cargo_capacity = ccapacity;
     cargo_type = ctype;
     size = sz;
