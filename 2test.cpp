@@ -250,10 +250,21 @@ int main()
                 cout << "\t\t\t***Private reservations***" << endl;
                 cout << "\t\t\t--------------------------" << endl;
                 cout << "\n1).Make reservation" << endl;
-                cout << "2).Available yatch" << endl;
-                cout << "3).Available Dates" << endl;
+                cout << "2). Add a new yatch" << endl;
+                cout << "3).Available yatch" << endl;
                 cout << "Enter your option or press 4 to exit...";
-                cin >> opt;
+                while (!(cin >> opt))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter an integer: ";
+                }
+                switch (opt)
+                {
+                case 1:
+
+                    break;
+                }
             } while (opt != 4);
             break;
         }
