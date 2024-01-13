@@ -43,6 +43,8 @@ public:
     int Get_cnic();
     string Get_username();
     string Get_password();
+    string Get_adusername();
+    string Get_adpass();
     void Creataccount();
     void loginaccount(string user, string pass);
     void display_available_management();
@@ -249,8 +251,8 @@ int main()
                 cout << "\t\t\t--------------------------" << endl;
                 cout << "\t\t\t***Private reservations***" << endl;
                 cout << "\t\t\t--------------------------" << endl;
-                cout << "\n1).Make reservation" << endl;
-                cout << "2). Add a new yatch" << endl;
+                cout << "\n1). Add a new yatch" << endl;
+                cout << "2).Make reservation" << endl;
                 cout << "3).Available yatch" << endl;
                 cout << "Enter your option or press 4 to exit...";
                 while (!(cin >> opt))
@@ -262,7 +264,36 @@ int main()
                 switch (opt)
                 {
                 case 1:
-
+                    system("cls");
+                    cout << "\n\t\t\t\t--------------------------------" << endl;
+                    cout << "\t\t\t\t***Welcome to management page***" << endl;
+                    cout << "\t\t\t\t--------------------------------" << endl;
+                    cout << "\n\t\tEnter your username: ";
+                    cin >> user;
+                    cout << "\n\t\tEnter your password: ";
+                    cin >> pass;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (user == m[i].Get_username() && pass == m[i].Get_password())
+                        {
+                            do
+                            {
+                                cout << "bla" << endl;
+                                cin >> choice;
+                            } while (choice != 'q');
+                        }
+                        else
+                        {
+                            do
+                            {
+                                cout << "\n\t\t-----------------------------" << endl;
+                                cout << "\t\tInvalid username or password!" << endl;
+                                cout << "\t\t-----------------------------" << endl;
+                                cout << "\n\t\tPress 'q' to exit...";
+                                cin >> choice;
+                            } while (choice != 'q');
+                        }
+                    }
                     break;
                 }
             } while (opt != 4);
@@ -287,6 +318,15 @@ management::management(string n, string g, int a, int i, string un, string pd) :
     username = un;
     password = pd;
 }
+string management::Get_adusername()
+{
+    return adminuser;
+}
+string management::Get_adpass()
+{
+    return adminpass;
+}
+string Get_adpassword();
 void management::Set_name(string n)
 {
     name = n;
