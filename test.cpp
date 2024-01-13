@@ -139,6 +139,21 @@ public:
     string get_make();
     int get_model();
     string get_varient();
+    friend ostream &operator<<(ostream &out, yatch &y)
+    {
+        cout << "\n\t\t\t--------------------------------------------------" << endl;
+        cout << "\t\t\tMake: " << y.make << endl;
+        cout << "\t\t\tmodel: " << y.model << endl;
+        cout << "\t\t\tvarient: " << y.varient << endl;
+        cout << "\t\t\tper_day_rent: " << y.per_day_rent << endl;
+        cout << "\t\t\tsize: " << y.size << endl;
+        cout << "\t\t\tdesign: " << y.design << endl;
+        cout << "\t\t\tMaterial: " << y.Material << endl;
+        cout << "\t\t\tspeed: " << y.speed << endl;
+        cout << "\t\t\tCrew_Capacity: " << y.Crew_Capacity << endl;
+        cout << "\t\t\tFlag_and_Registration: " << y.Flag_and_Registration << endl;
+        cout << "\t\t\t--------------------------------------------------" << endl;
+    }
 };
 
 int i = 0;
@@ -266,8 +281,8 @@ int main()
                 cout << "\t\t\t***Private reservations***" << endl;
                 cout << "\t\t\t--------------------------" << endl;
                 cout << "\n1). Add a new yatch" << endl;
-                cout << "2).Make reservation" << endl;
-                cout << "3).Available yatch" << endl;
+                cout << "2).Available yatch" << endl;
+                cout << "3).Make reservation" << endl;
                 cout << "Enter your option or press 4 to exit...";
                 while (!(cin >> opt))
                 {
@@ -337,6 +352,22 @@ int main()
                             } while (choice != 'q');
                         }
                     }
+                    break;
+                case 2:
+                    system("cls");
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    cout << "\t\t\t\t\t***Details of Available yatch***" << endl;
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    do
+                    {
+                        for (int i = 0; i < yc; i++)
+                        {
+                            cout << y[i] << endl;
+                        }
+                        cout << "\n\tPress 'q' to exit...";
+                        cin >> choice;
+                    } while (choice != 'q');
+
                     break;
                 }
             } while (opt != 4);
@@ -670,7 +701,7 @@ void yatch::set_Flag_and_Registration(string n)
     Flag_and_Registration = n;
 }
 
-cargo_ship::cargo_ship(string mak, int mod, string vart,int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
+cargo_ship::cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
 {
     make = mak;
     model = mod;
