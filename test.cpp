@@ -59,6 +59,12 @@ private:
 
 public:
     customer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt);
+    void Set_name(string n);
+    void Set_gender(string n);
+    void Set_age(int n);
+    string Get_name();
+    string Get_gender();
+    int Get_age();
     void Set_permanent_adress(string n);
     void Set_current_location(string n);
     void Set_phone_number(int n);
@@ -67,7 +73,19 @@ public:
     string get_current_location();
     int get_phone_number();
     float get_advance_payment();
+    friend ostream &operator<<(ostream &out, customer &c)
+    {
+        cout << "\n\t\t------------------------------------------" << endl;
+        cout << "\t\tName: " << c.name << endl;
+        cout << "\t\tgender: " << c.gender << endl;
+        cout << "\t\tage: " << c.age << endl;
+        cout << "\t\tPermanent_adress: " << c.Permanant_adress << endl;
+        cout << "\t\tCurrent_location: " << c.Current_location << endl;
+        cout << "\t\tphone_number: " << c.phone_number << endl;
+        cout << "\t\t------------------------------------------" << endl;
+    }
 };
+
 class boat
 {
 protected:
@@ -115,6 +133,7 @@ public:
 class yatch : protected boat
 {
 private:
+    int id;
     float per_day_rent;
     int size;        // In feets and inches
     string design;   // Modern, classic, expedition, or custom design styles.
@@ -126,6 +145,8 @@ private:
 public:
     yatch(){};
     yatch(string mak, int mod, string vart, float rnt, int s, string dsg, string mtr, int spd, int ccapacity, string reg);
+    void set_id(int n);
+    int get_id();
     void set_make(string n);
     void set_pdr(float n);
     void set_model(int n);
@@ -142,16 +163,17 @@ public:
     friend ostream &operator<<(ostream &out, yatch &y)
     {
         cout << "\n\t\t\t--------------------------------------------------" << endl;
+        cout << "\t\t\tYatch Id: " << y.id << endl;
         cout << "\t\t\tMake: " << y.make << endl;
-        cout << "\t\t\tmodel: " << y.model << endl;
-        cout << "\t\t\tvarient: " << y.varient << endl;
-        cout << "\t\t\tper_day_rent: " << y.per_day_rent << endl;
-        cout << "\t\t\tsize: " << y.size << endl;
-        cout << "\t\t\tdesign: " << y.design << endl;
+        cout << "\t\t\tModel: " << y.model << endl;
+        cout << "\t\t\tVarient: " << y.varient << endl;
+        cout << "\t\t\tPer day rent: " << y.per_day_rent << endl;
+        cout << "\t\t\tDize: " << y.size << endl;
+        cout << "\t\t\tDesign: " << y.design << endl;
         cout << "\t\t\tMaterial: " << y.Material << endl;
-        cout << "\t\t\tspeed: " << y.speed << endl;
+        cout << "\t\t\tSpeed: " << y.speed << endl;
         cout << "\t\t\tCrew_Capacity: " << y.Crew_Capacity << endl;
-        cout << "\t\t\tFlag_and_Registration: " << y.Flag_and_Registration << endl;
+        cout << "\t\t\tFlag and Registration: " << y.Flag_and_Registration << endl;
         cout << "\t\t\t--------------------------------------------------" << endl;
     }
 };
@@ -352,6 +374,7 @@ int main()
                             cout << "\t\tEnter Flag_and_Registration of yatch: ";
                             cin >> Flag_and_Registration;
                             y[yc].set_Flag_and_Registration(Flag_and_Registration);
+                            y[yc].set_id(yc + 1);
                             yc++;
                         }
                     }
@@ -634,6 +657,63 @@ customer::customer(string n, string g, int a, string Padress, string Clocation, 
     phone_number = pnum;
     advance_payment = adpaymt;
 }
+void customer::Set_name(string n)
+{
+    name = n;
+}
+void customer::Set_gender(string n)
+{
+    gender = n;
+}
+void customer::Set_age(int n)
+{
+    age = n;
+}
+string customer::Get_name()
+{
+    return name;
+}
+string customer::Get_gender()
+{
+    return gender;
+}
+int customer::Get_age()
+{
+    return age;
+}
+void customer::Set_permanent_adress(string n)
+{
+    Permanant_adress = n;
+}
+void customer::Set_current_location(string n)
+{
+    Current_location = n;
+}
+void customer::Set_phone_number(int n)
+{
+    phone_number = n;
+}
+void customer::Set_advance_payment(float n)
+{
+    advance_payment = n;
+}
+string customer::get_permanent_adress()
+{
+    return Permanant_adress;
+}
+string customer::get_current_location()
+{
+    return Current_location;
+}
+int customer::get_phone_number()
+{
+    return phone_number;
+}
+float customer::get_advance_payment()
+{
+    return advance_payment;
+}
+
 boat::boat(string n, int m, string r)
 {
     make = n;
@@ -701,6 +781,14 @@ void yatch::set_pdr(float n)
 void yatch::set_Flag_and_Registration(string n)
 {
     Flag_and_Registration = n;
+}
+void yatch::set_id(int n)
+{
+    id = n;
+}
+int yatch::get_id()
+{
+    return id;
 }
 
 cargo_ship::cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
