@@ -159,6 +159,7 @@ private:
     int speed;       // in KMPH
     int Crew_Capacity;
     string Flag_and_Registration; // The country under whose flag the yacht is registered.
+    int dd, mm, yyyy;
 
 public:
     yatch(){};
@@ -180,10 +181,23 @@ public:
     string get_make();
     int get_model();
     string get_varient();
+    void set_date(int n, int m, int p);
+    int get_day();
+    int get_mm();
+    int get_yyyy();
+
     friend ostream &operator<<(ostream &out, yatch &y)
     {
         cout << "\n\t\t\t--------------------------------------------------" << endl;
         cout << "\t\t\tYatch Id: " << y.id << endl;
+        if (y.flag == 1)
+        {
+            cout << "\t\t\tStatus: Yacht is booked for (" << y.dd << " , " << y.mm << " , " << y.yyyy << ")" << endl;
+        }
+        else
+        {
+            cout << "\t\t\tStatus: available for all dates..." << endl;
+        }
         cout << "\t\t\tMake: " << y.make << endl;
         cout << "\t\t\tModel: " << y.model << endl;
         cout << "\t\t\tVarient: " << y.varient << endl;
@@ -213,7 +227,7 @@ int main()
     int size, speed, Crew_Capacity, model;
     string design, Material, Flag_and_Registration, discription, make, varient;
     float per_day_rent;
-    int bid;
+    int bid, dd, mm, yyyy;
 
     customer c[100];
 
@@ -422,29 +436,36 @@ int main()
                     cout << "\t\t\t\t\t--------------------------------" << endl;
                     cout << "\t\t\t\t\t*********Yacht bookings*********" << endl;
                     cout << "\t\t\t\t\t--------------------------------" << endl;
+
                     cout << "\n\n\t\t\tEnter yatch ID: ";
                     cin >> bid;
+                    cout << "Enter day you want to book: ";
+                    cin >> dd;
+                    cout << "Enter month you want to book: ";
+                    cin >> mm;
+                    cout << "Enter year you want to book: ";
+                    cin >> yyyy;
                     for (int i = 0; i < yc; i++)
                     {
                         if (bid == y[i].get_id())
                         {
-                            if (y[i].get_flag() == 1)
+                            if (y[i].get_day() == dd && y[i].get_mm() == mm && y[i].get_yyyy() == yyyy)
                             {
                                 do
                                 {
-                                    cout << "\n\t\t\tYacht is already booked" << endl;
+                                    cout << "\n\t\t\tYacht is already booked for this date" << endl;
                                     cout << "\t\tPress 'q' to exit....";
                                     cin >> choice;
                                 } while (choice != 'q');
                             }
                             else
                             {
+                                y[i].set_date(dd, mm, yyyy);
                                 y[i].set_flag(1);
                                 cin >> c[cc];
                             }
                         }
                     }
-
                     break;
                 }
             } while (opt != 4);
@@ -849,6 +870,24 @@ void yatch::set_flag(int n)
 int yatch::get_flag()
 {
     return flag;
+}
+void yatch::set_date(int n, int m, int p)
+{
+    dd = n;
+    mm = m;
+    yyyy = p;
+}
+int yatch::get_day()
+{
+    return dd;
+}
+int yatch::get_mm()
+{
+    return mm;
+}
+int yatch::get_yyyy()
+{
+    return yyyy;
 }
 
 cargo_ship::cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
