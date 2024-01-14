@@ -58,6 +58,7 @@ private:
     float advance_payment;
 
 public:
+    customer(){};
     customer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt);
     void Set_name(string n);
     void Set_gender(string n);
@@ -83,6 +84,22 @@ public:
         cout << "\t\tCurrent_location: " << c.Current_location << endl;
         cout << "\t\tphone_number: " << c.phone_number << endl;
         cout << "\t\t------------------------------------------" << endl;
+    }
+    friend istream &operator>>(istream &in, customer &c)
+    {
+        cout << endl;
+        cout << "\t\tEnter your name: ";
+        in >> c.name;
+        cout << "\t\tEnter your gender: ";
+        in >> c.gender;
+        cout << "\t\tEnter your age: ";
+        in >> c.age;
+        cout << "\t\tEnter your Permanent adress: ";
+        in >> c.Permanant_adress;
+        cout << "\t\tEnter your Current location: ";
+        in >> c.Current_location;
+        cout << "\t\tEnter your phone number: ";
+        in >> c.phone_number;
     }
 };
 
@@ -134,6 +151,7 @@ class yatch : protected boat
 {
 private:
     int id;
+    int flag = 0;
     float per_day_rent;
     int size;        // In feets and inches
     string design;   // Modern, classic, expedition, or custom design styles.
@@ -145,6 +163,8 @@ private:
 public:
     yatch(){};
     yatch(string mak, int mod, string vart, float rnt, int s, string dsg, string mtr, int spd, int ccapacity, string reg);
+    void set_flag(int n);
+    int get_flag();
     void set_id(int n);
     int get_id();
     void set_make(string n);
@@ -180,7 +200,7 @@ public:
 
 int i = 0;
 int count = 0;
-int yc = 0;
+int yc = 0, cc = 0;
 int main()
 {
     int opt;
@@ -193,6 +213,9 @@ int main()
     int size, speed, Crew_Capacity, model;
     string design, Material, Flag_and_Registration, discription, make, varient;
     float per_day_rent;
+    int bid;
+
+    customer c[100];
 
     do
     {
@@ -393,6 +416,35 @@ int main()
                         cout << "\n\tPress 'q' to exit...";
                         cin >> choice;
                     } while (choice != 'q');
+                    break;
+                case 3:
+                    system("cls");
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    cout << "\t\t\t\t\t*********Yacht bookings*********" << endl;
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    cout << "\n\n\t\t\tEnter yatch ID: ";
+                    cin >> bid;
+                    for (int i = 0; i < yc; i++)
+                    {
+                        if (bid == y[i].get_id())
+                        {
+                            if (y[i].get_flag() == 1)
+                            {
+                                do
+                                {
+                                    cout << "\n\t\t\tYacht is already booked" << endl;
+                                    cout << "\t\tPress 'q' to exit....";
+                                    cin >> choice;
+                                } while (choice != 'q');
+                            }
+                            else
+                            {
+                                y[i].set_flag(1);
+                                cin >> c[cc];
+                            }
+                        }
+                    }
+
                     break;
                 }
             } while (opt != 4);
@@ -789,6 +841,14 @@ void yatch::set_id(int n)
 int yatch::get_id()
 {
     return id;
+}
+void yatch::set_flag(int n)
+{
+    flag = n;
+}
+int yatch::get_flag()
+{
+    return flag;
 }
 
 cargo_ship::cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
