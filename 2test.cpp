@@ -49,7 +49,7 @@ public:
     void loginaccount(string user, string pass);
     void display_available_management();
 };
-class customer : private User
+class ycustomer : private User
 {
 private:
     string Permanant_adress;
@@ -58,8 +58,8 @@ private:
     float advance_payment;
 
 public:
-    customer(){};
-    customer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt);
+    ycustomer(){};
+    ycustomer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt);
     void Set_name(string n);
     void Set_gender(string n);
     void Set_age(int n);
@@ -74,7 +74,7 @@ public:
     string get_current_location();
     int get_phone_number();
     float get_advance_payment();
-    friend ostream &operator<<(ostream &out, customer &c)
+    friend ostream &operator<<(ostream &out, ycustomer &c)
     {
         cout << "\n\t\t------------------------------------------" << endl;
         cout << "\t\tName: " << c.name << endl;
@@ -85,7 +85,7 @@ public:
         cout << "\t\tphone_number: " << c.phone_number << endl;
         cout << "\t\t------------------------------------------" << endl;
     }
-    friend istream &operator>>(istream &in, customer &c)
+    friend istream &operator>>(istream &in, ycustomer &c)
     {
         cout << endl;
         cout << "\t\tEnter your name: ";
@@ -115,37 +115,185 @@ public:
     boat(string n, int m, string r);
     // virtual void display_all_yatchs() = 0;
 };
-
-class cargo_ship : private boat
+class Itravels
 {
-private:
-    int cargo_capacity;           // The amount of cargo, measured in terms of tonnage or TEUs (twenty-foot equivalent units), that a ship can carry.
-    string cargo_type;            // Different ships are designed for specific types of cargo, such as container ships, bulk carriers, general cargo ships, or specialized vessels for liquids (tankers) or dry bulk (bulk carriers).
-    int size;                     // Length overall (LOA), breadth, and draft determine the physical size of the ship.
-    int container_capacity;       // For container ships, the number of containers it can carry and the capacity for different container sizes (20-foot, 40-foot, etc.).
-    string flag_and_registration; // under which country it is registereg
-    int speed;
-    int range; // the distance it can cover on a single voyage before refueling.
-    string details;
+protected:
+    string country;
+    float firstclass_price, bussisness_price, economy_price;
+    int dep_dd, dep_mm, dpe_yyyy;
+    int arv_dd, arv_mm, arv_yyyy;
+    int remaining_tickets;
+    int Id, bought_tickets;
 
 public:
-    cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp);
-    void set_cargo_capacity(int n);
-    void set_cargo_type(string n);
-    void set_size(int n);
-    void set_container_capacity(int n);
-    void set_flag_and_registration(string n);
-    void set_speed(int n);
-    void set_range(int n);
-    void set_details(string n);
-    int get_cargo_capacity();
-    string get_cargo_type();
-    int get_size();
-    int get_container_capacity();
-    string get_flag_and_registration();
-    int get_speed();
-    int get_range();
-    string get_details();
+    void set_id(int n)
+    {
+        Id = n + 1;
+    }
+    int get_id()
+    {
+        return Id;
+    }
+    int get_classprice(int n)
+    {
+        if (n == 1)
+        {
+            return firstclass_price;
+        }
+        else if (n == 2)
+        {
+            return bussisness_price;
+        }
+        else if (n == 3)
+        {
+            return economy_price;
+        }
+    }
+    void set_country(string c);
+    void set_firstclass_price(float n);
+    void set_bussisness_price(float n);
+    void set_economy_price(float n);
+    void set_dep_date(int d, int m, int y);
+    void set_arv_date(int d, int m, int y);
+    void set_remaning_tickets(int n = 0)
+    {
+        remaining_tickets -= n;
+    }
+    friend istream &operator>>(istream &in, Itravels &I)
+    {
+        cout << "\n\t\tEnter the destination country: ";
+        in >> I.country;
+        cout << "\n\t\tEnter the Frist class ticket price: ";
+        in >> I.firstclass_price;
+        cout << "\n\t\tEnter Bussisness class ticket price: ";
+        in >> I.bussisness_price;
+        cout << "\n\t\tEnter Economy class ticket price: ";
+        in >> I.economy_price;
+        cout << "\n\t\tEnter departure day: ";
+        in >> I.dep_dd;
+        cout << "\n\t\tEnter departure month: ";
+        in >> I.dep_mm;
+        cout << "\n\t\tEnter departure year: ";
+        in >> I.dpe_yyyy;
+        cout << "\n\t\tEnter arival day: ";
+        in >> I.arv_dd;
+        cout << "\n\t\tEnter arival month: ";
+        in >> I.arv_mm;
+        cout << "\n\t\tEnter arival year: ";
+        in >> I.arv_yyyy;
+        cout << "Enter total available tickets: ";
+        in >> I.remaining_tickets;
+    }
+    friend ostream &operator<<(ostream &out, Itravels &I)
+    {
+        cout << I.Id << "             " << I.country << "              " << I.firstclass_price << "                      " << I.bussisness_price << "                    " << I.economy_price << "          "
+             << "(" << I.dep_dd << " , " << I.dep_mm << " , " << I.dpe_yyyy << ")"
+             << "      "
+             << "(" << I.arv_dd << " , " << I.arv_mm << " , " << I.arv_yyyy << ")          " << I.remaining_tickets << endl;
+    }
+};
+class Ibookings : private Itravels
+{
+private:
+    int flag = 0;
+    string name, status;
+    int age;
+    string gender;
+    string Permanant_adress;
+    string Current_location;
+    int phone_number;
+    long long cardnumber;
+    int expdate, cvc;
+    char choice;
+    int booked_tickets, paid_ammount;
+
+public:
+    void set_payment();
+    void set_booked_tickets(int n)
+    {
+        booked_tickets = n;
+    }
+    friend ostream &operator<<(ostream &out, Ibookings &I)
+    {
+        cout << "\n\t\t------------------------------------------" << endl;
+        cout << "\t\tName: " << I.name << endl;
+        // cout << "\t\tTotal ammount: " << I.paid_ammount << endl;
+        cout << "\t\tPayment status: " << I.status << endl;
+        cout << "\t\tTotal booked Tickets: " << I.booked_tickets << endl;
+        cout << "\t\tgender: " << I.gender << endl;
+        cout << "\t\tage: " << I.age << endl;
+        cout << "\t\tPermanent_adress: " << I.Permanant_adress << endl;
+        cout << "\t\tCurrent_location: " << I.Current_location << endl;
+        cout << "\t\tphone_number: " << I.phone_number << endl;
+        cout << "\t\t------------------------------------------" << endl;
+    }
+    friend istream &operator>>(istream &in, Ibookings &c)
+    {
+        cout << endl;
+        cout << "\t\tEnter your name: ";
+        in >> c.name;
+        cout << "\t\tEnter your gender: ";
+        in >> c.gender;
+        cout << "\t\tEnter your age: ";
+        in >> c.age;
+        cout << "\t\tEnter your Permanent adress: ";
+        in >> c.Permanant_adress;
+        cout << "\t\tEnter your Current location: ";
+        in >> c.Current_location;
+        cout << "\t\tEnter your phone number: ";
+        in >> c.phone_number;
+        // c.paid_ammount = c.set_paid_ammount();
+        c.set_payment();
+        if (c.flag == 0)
+        {
+            c.status = "unpaid";
+        }
+        else if (c.flag == 1)
+        {
+            c.status = "Paid";
+        }
+    }
+};
+class cargo_ship
+{
+private:
+    int weight, cnic, payment = 1000;
+    string destination, name;
+    int id;
+
+public:
+    cargo_ship(){};
+    void set_id(int n)
+    {
+        id = n + 1;
+    }
+    int get_id()
+    {
+        return id;
+    }
+    friend ostream &operator<<(ostream &out, cargo_ship &c)
+    {
+        cout << "\n\t\t\t--------------------" << endl;
+        cout << "\t\t\tShipment ID: " << c.id << endl;
+        cout << "\t\t\tName: " << c.name << endl;
+        cout << "\t\t\tCNIC: " << c.cnic << endl;
+        cout << "\t\t\tWeight: " << c.weight << "kg" << endl;
+        cout << "\t\t\tTotal bill: " << c.payment << "PKR." << endl;
+        cout << "\t\t\tDestination: " << c.destination << endl;
+        cout << "\t\t\t--------------------" << endl;
+    }
+    friend istream &operator>>(istream &in, cargo_ship &c)
+    {
+        cout << "\n\t\tEnter your name: ";
+        cin >> c.name;
+        cout << "\t\tEnter your CNIC: ";
+        cin >> c.cnic;
+        cout << "\t\tEnter weight of shipment in kg: ";
+        cin >> c.weight;
+        c.payment *= c.weight;
+        cout << "\t\tEnter destination: ";
+        cin >> c.destination;
+    }
 };
 class yatch : protected boat
 {
@@ -214,9 +362,11 @@ public:
 
 int i = 0;
 int count = 0;
-int yc = 0, cc = 0;
+int yc = 0, cc = 0, It = 0, IB = 0, cargo = 0;
+
 int main()
 {
+    int flag;
     int opt;
     char choice;
 
@@ -229,7 +379,12 @@ int main()
     float per_day_rent;
     int bid, dd, mm, yyyy;
 
-    customer c[100];
+    ycustomer c[100];
+    Itravels I[100];
+    Ibookings IBk[100];
+    int count_ticket;
+
+    cargo_ship crg[100];
 
     do
     {
@@ -469,6 +624,222 @@ int main()
                     break;
                 }
             } while (opt != 4);
+            break;
+        case 3:
+            do
+            {
+                system("cls");
+                cout << "\n\t\t\t------------------------------------------" << endl;
+                cout << "\t\t\t*******international travle bookings*******" << endl;
+                cout << "\t\t\t-------------------------------------------" << endl;
+                cout << "1).Add a new Destination" << endl;
+                cout << "2).Book a ticket " << endl;
+                cout << "3).details of all customers" << endl;
+                cout << "Enter your option or press 4 to exit...";
+                while (!(cin >> opt))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter an integer: ";
+                }
+                switch (opt)
+                {
+                case 1:
+                    system("cls");
+                    cout << "\n\n\t\t\t---------------------" << endl;
+                    cout << "\t\t\tWelcome to login page" << endl;
+                    cout << "\t\t\t---------------------" << endl;
+
+                    cout << "\t\tEnter your username: ";
+                    cin >> user;
+                    cout << "\n\t\tEnter your password: ";
+                    cin >> pass;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (user == m[i].Get_username() && pass == m[i].Get_password())
+                        {
+                            system("cls");
+                            cout << "\n\n\t\t\t-------------------------" << endl;
+                            cout << "\t\t\t***Add new Destination***" << endl;
+                            cout << "\t\t\t-------------------------" << endl;
+                            cout << "\n\t\tEnter details of new destination..." << endl;
+                            cin >> I[It];
+                            I[It].set_id(It);
+                            It++;
+                        }
+                    }
+                    break;
+                case 2:
+                    do
+                    {
+                        system("cls");
+                        cout << "\n\t\t\t\t\t------------------------------------------" << endl;
+                        cout << "\t\t\t\t\t*******Upcomming avalible Departures*******" << endl;
+                        cout << "\t\t\t\t\t-------------------------------------------" << endl;
+                        cout << "\n\nBooking Id    Country        First Class Ticket      Bussisness class Ticket      Economy Ticket       Departure date        Arival Date      remaning Tickets" << endl;
+
+                        for (int i = 0; i < It; i++)
+                        {
+                            cout << I[i];
+                        }
+                        cout << "\n\n\t1)Book a Ticket" << endl;
+                        cout << "\t2)Bookings summery" << endl;
+                        cout << "\t3)Back to main menue..." << endl;
+
+                        cout << "\nSelect your option...";
+                        while (!(cin >> opt))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        switch (opt)
+                        {
+                        case 1:
+                            cout << "\n\n\t\t\tEnter booking ID: ";
+                            while (!(cin >> bid))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
+                            cout << "\t\tEnter number of tickets you want to buy: ";
+                            cin >> count_ticket;
+                            // IBk[IB].set_paid_ammount();
+                            IBk[IB].set_booked_tickets(count_ticket);
+                            I[bid - 1].set_remaning_tickets(count_ticket);
+                            for (int i = 0; i < It; i++)
+                            {
+                                if (bid == I[i].get_id())
+                                {
+                                    cout << "\t\tEnter your details...";
+                                    cin >> IBk[IB];
+                                    IB++;
+                                }
+                            }
+                            break;
+                        case 2:
+                            do
+                            {
+                                system("cls");
+                                cout << "\n\t\t\t\t\t------------------------------------------" << endl;
+                                cout << "\t\t\t\t\t**********Bookings summery Report**********" << endl;
+                                cout << "\t\t\t\t\t-------------------------------------------" << endl;
+                                for (int i = 0; i < IB; i++)
+                                {
+                                    cout << IBk[i];
+                                }
+                                cout << "\n\tPress 'q' to exit...";
+                                cin >> choice;
+                            } while (choice != 'q');
+                            break;
+                        }
+                    } while (opt != 3);
+                    break;
+                case 3:
+                    do
+                    {
+                        system("cls");
+                        cout << "\n\t\t\t\t\t------------------------------------------" << endl;
+                        cout << "\t\t\t\t\t**********Bookings summery Report**********" << endl;
+                        cout << "\t\t\t\t\t-------------------------------------------" << endl;
+                        for (int i = 0; i < IB; i++)
+                        {
+                            cout << IBk[i];
+                        }
+                        cout << "\n\tPress 'q' to exit...";
+                        cin >> choice;
+                    } while (choice != 'q');
+                    break;
+                }
+            } while (opt != 4);
+            break;
+        case 4:
+            system("cls");
+            cout << "\n\t\t\t---------------------" << endl;
+            cout << "\t\t\tWelcome to login page" << endl;
+            cout << "\t\t\t---------------------" << endl;
+
+            cout << "\t\tEnter your username: ";
+            cin >> user;
+            cout << "\n\t\tEnter your password: ";
+            cin >> pass;
+            for (int i = 0; i < count; i++)
+            {
+                if (user == m[i].Get_username() && pass == m[i].Get_password())
+                {
+                    do
+                    {
+                        system("cls");
+                        cout << "\n\t\t\t---------------------" << endl;
+                        cout << "\t\t\t***Cargo Shipments***" << endl;
+                        cout << "\t\t\t---------------------" << endl;
+                        cout << "\n\t\t1)Cargo a shipment" << endl;
+                        cout << "\t\t2)Summary report" << endl;
+                        cout << "\t\t3)Search a shipment" << endl;
+                        cout << "\t\tPress 4 to go to main menue";
+                        cin >> opt;
+                        switch (opt)
+                        {
+                        case 1:
+                            system("cls");
+                            cout << "\n\t\t\t----------------------" << endl;
+                            cout << "\t\t\t****Cargo Shipment****" << endl;
+                            cout << "\t\t\t----------------------" << endl;
+                            cin >> crg[cargo];
+                            crg[cargo].set_id(cargo);
+                            cargo++;
+                            break;
+                        case 2:
+                            do
+                            {
+                                cout << "\n\t\t\t--------------------------------------" << endl;
+                                cout << "\t\t\t****Summary report of all shipment****" << endl;
+                                cout << "\t\t\t--------------------------------------" << endl;
+                                for (int i = 0; i < cargo; i++)
+                                {
+                                    cout << crg[i];
+                                }
+                                cout << "\tPress 'q' to exit...";
+                                cin >> choice;
+                            } while (choice != 'q');
+                            break;
+                        case 3:
+                            cout << "\n\t\t\t--------------------------------------" << endl;
+                            cout << "\t\t\t     ******Search a Shipment******    " << endl;
+                            cout << "\t\t\t--------------------------------------" << endl;
+                            cout << "\n\t\tEnter booking Id: ";
+                            cin >> bid;
+                            for (int i = 0; i < cargo; i++)
+                            {
+                                if (bid == crg[i].get_id())
+                                {
+                                    do
+                                    {
+                                        flag = 1;
+                                        cout << crg[i];
+                                        cout << "\n\t\tPress 'q' to exit...";
+                                        cin >> choice;
+                                    } while (choice != 'q');
+                                }
+                                else
+                                {
+                                    flag = 0;
+                                }
+                            }
+                            if (flag == 0)
+                            {
+                                do
+                                {
+                                    cout << "\n\t\tNo shipment found press 'q to exit'...";
+                                    cin >> choice;
+                                } while (choice != 'q');
+                            }
+                            break;
+                        }
+                    } while (opt != 4);
+                }
+            }
             break;
         }
     } while (opt != 5);
@@ -720,7 +1091,7 @@ void management::display_available_management()
     cout << "\t\t\t--------------------" << endl;
 }
 
-customer::customer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt) : User(n, g, a)
+ycustomer::ycustomer(string n, string g, int a, string Padress, string Clocation, int pnum, float adpaymt) : User(n, g, a)
 {
     name = n;
     gender = g;
@@ -730,59 +1101,59 @@ customer::customer(string n, string g, int a, string Padress, string Clocation, 
     phone_number = pnum;
     advance_payment = adpaymt;
 }
-void customer::Set_name(string n)
+void ycustomer::Set_name(string n)
 {
     name = n;
 }
-void customer::Set_gender(string n)
+void ycustomer::Set_gender(string n)
 {
     gender = n;
 }
-void customer::Set_age(int n)
+void ycustomer::Set_age(int n)
 {
     age = n;
 }
-string customer::Get_name()
+string ycustomer::Get_name()
 {
     return name;
 }
-string customer::Get_gender()
+string ycustomer::Get_gender()
 {
     return gender;
 }
-int customer::Get_age()
+int ycustomer::Get_age()
 {
     return age;
 }
-void customer::Set_permanent_adress(string n)
+void ycustomer::Set_permanent_adress(string n)
 {
     Permanant_adress = n;
 }
-void customer::Set_current_location(string n)
+void ycustomer::Set_current_location(string n)
 {
     Current_location = n;
 }
-void customer::Set_phone_number(int n)
+void ycustomer::Set_phone_number(int n)
 {
     phone_number = n;
 }
-void customer::Set_advance_payment(float n)
+void ycustomer::Set_advance_payment(float n)
 {
     advance_payment = n;
 }
-string customer::get_permanent_adress()
+string ycustomer::get_permanent_adress()
 {
     return Permanant_adress;
 }
-string customer::get_current_location()
+string ycustomer::get_current_location()
 {
     return Current_location;
 }
-int customer::get_phone_number()
+int ycustomer::get_phone_number()
 {
     return phone_number;
 }
-float customer::get_advance_payment()
+float ycustomer::get_advance_payment()
 {
     return advance_payment;
 }
@@ -890,17 +1261,92 @@ int yatch::get_yyyy()
     return yyyy;
 }
 
-cargo_ship::cargo_ship(string mak, int mod, string vart, int ccapacity, string ctype, int sz, int cntcapac, string freg, int spd, int rng, string dsp) : boat(mak, mod, vart)
+void Itravels::set_country(string c)
 {
-    make = mak;
-    model = mod;
-    varient = vart;
-    cargo_capacity = ccapacity;
-    cargo_type = ctype;
-    size = sz;
-    container_capacity = cntcapac;
-    flag_and_registration = freg;
-    speed = spd;
-    range = rng;
-    details = dsp;
+    country = c;
+}
+void Itravels::set_firstclass_price(float n)
+{
+    firstclass_price = n;
+}
+void Itravels::set_bussisness_price(float n)
+{
+    bussisness_price = n;
+}
+void Itravels::set_economy_price(float n)
+{
+    economy_price = n;
+}
+void Itravels::set_dep_date(int d, int m, int y)
+{
+    dep_dd = d;
+    dep_mm = m;
+    dpe_yyyy = y;
+}
+void Itravels::set_arv_date(int d, int m, int y)
+{
+    arv_dd = d;
+    arv_mm = m;
+    arv_yyyy = y;
+}
+
+void Ibookings::set_payment()
+
+{
+    char choice;
+    cout << "\n\t\t\t------------------------------------------" << endl;
+    cout << "\t\t\t**************Payment process**************" << endl;
+    cout << "\t\t\t-------------------------------------------" << endl;
+    cout << "\t\tEnter your Debit card Number: ";
+    cin >> cardnumber;
+    if ((cardnumber >= 1000000000000000LL && cardnumber <= 9999999999999999LL))
+    {
+        cout << "\t\tEnter card expiry date year: ";
+        while (!(cin >> expdate))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
+        if (expdate >= 2024 || expdate <= 2028)
+        {
+            cout << "\t\tEnter your 3 digit cvc number: ";
+            while (!(cin >> cvc))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (cvc >= 100 && cvc <= 999)
+            {
+                flag = 1;
+                do
+                {
+                    cout << "Your payment is processed... Press 'q' to exit..." << endl;
+                    cin >> choice;
+                } while (choice != 'q');
+            }
+            else
+            {
+                do
+                {
+                    cout << "Invalid cvc number... Press 'q' to exit..." << endl;
+                    cin >> choice;
+                } while (choice != 'q');
+            }
+        }
+        do
+        {
+            cout << "Invalid expiry date... Press 'q' to exit..." << endl;
+            cin >> choice;
+        } while (choice != 'q');
+    }
+    else
+    {
+        do
+        {
+            cout << "Invalid card number... Press 'q' to exit..." << endl;
+            cin >> choice;
+        } while (choice != 'q');
+    }
 }
