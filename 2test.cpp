@@ -289,7 +289,7 @@ public:
              << "(" << I.arv_dd << " , " << I.arv_mm << " , " << I.arv_yyyy << ")          " << I.remaining_tickets << endl;
     }
 };
-class Ibookings : private Itravels
+class Ibookings
 {
 private:
     int flag = 0;
@@ -507,12 +507,12 @@ int main()
         cout << "\t\t                    ----------------------------------------------" << endl;
         cout << "\t\t                   |                                              |" << endl;
         cout << "\t\t                   |   1). Management login                       |" << endl;
-        cout << "\t\t                   |   2). Internamional Travels                  |" << endl;
+        cout << "\t\t                   |   2). International Travels                  |" << endl;
         cout << "\t\t                   |   3). Private Reservations                   |" << endl;
         cout << "\t\t                   |   4). cargo shipments                        |" << endl;
         cout << "\t\t                   |                                              |" << endl;
         cout << "\t\t                    ----------------------------------------------" << endl;
-        cout << "\n\t\t                   Enter your option or press 5 to qxit...";
+        cout << "\n\t\t                   Enter your option or press 5 to exit...";
         while (!(cin >> opt))
         {
             cin.clear();
@@ -831,13 +831,58 @@ int main()
                     cout << "\t\t\t\t\t--------------------------------" << endl;
 
                     cout << "\n\n\t\t\tEnter yatch ID: ";
-                    cin >> bid;
-                    cout << "Enter day you want to book: ";
-                    cin >> dd;
-                    cout << "Enter month you want to book: ";
-                    cin >> mm;
-                    cout << "Enter year you want to book: ";
-                    cin >> yyyy;
+                    while (!(cin >> bid))
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Invalid input. Please enter an integer: ";
+                    }
+
+                    do
+                    {
+                        cout << "\n\t\tEnter booking day: ";
+                        while (!(cin >> dd))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        if (dd < 1 || dd > 31)
+                        {
+                            cout << "\n invalid day:";
+                        }
+                    } while (dd < 1 || dd > 31);
+
+                    do
+                    {
+                        cout << "\n\t\tEnter booking month: ";
+                        while (!(cin >> mm))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        if (mm < 1 || mm > 12)
+                        {
+                            cout << "\n invalid month:";
+                        }
+                    } while (mm < 1 || mm > 12);
+
+                    do
+                    {
+                        cout << "\n\t\tEnter Booking year: ";
+                        while (!(cin >> yyyy))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        if (yyyy < 2024 || yyyy > 2028)
+                        {
+                            cout << "\n invalid year:";
+                        }
+                    } while (yyyy < 2024 || yyyy > 2028);
+
                     for (int i = 0; i < yc; i++)
                     {
                         if (bid == y[i].get_id())
@@ -887,7 +932,12 @@ int main()
                         cout << "\t\t2)Summary report" << endl;
                         cout << "\t\t3)Search a shipment" << endl;
                         cout << "\t\tPress 4 to go to main menue";
-                        cin >> opt;
+                        while (!(cin >> opt))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
                         switch (opt)
                         {
                         case 1:
@@ -918,7 +968,12 @@ int main()
                             cout << "\t\t\t     ******Search a Shipment******    " << endl;
                             cout << "\t\t\t--------------------------------------" << endl;
                             cout << "\n\t\tEnter booking Id: ";
-                            cin >> bid;
+                            while (!(cin >> bid))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             for (int i = 0; i < cargo; i++)
                             {
                                 if (bid == crg[i].get_id())
@@ -953,7 +1008,7 @@ int main()
         }
     } while (opt != 5);
 }
-
+// management class functions
 string management::Get_adusername()
 {
     return adminuser;
@@ -1183,7 +1238,7 @@ void management::display_available_management()
     cout << "\t\t\tCNIC: " << cnic << endl;
     cout << "\t\t\t--------------------" << endl;
 }
-
+// Yacht customers class functions
 void ycustomer::Set_name(string n)
 {
     name = n;
@@ -1240,7 +1295,7 @@ float ycustomer::get_advance_payment()
 {
     return advance_payment;
 }
-
+// yacht class functions
 void yatch::set_make(string n)
 {
     make = n;
@@ -1327,7 +1382,7 @@ int yatch::get_yyyy()
 {
     return yyyy;
 }
-
+// International travels class functions
 void Itravels::set_country(string c)
 {
     country = c;
@@ -1358,7 +1413,6 @@ void Itravels::set_arv_date(int d, int m, int y)
 }
 
 void Ibookings::set_payment()
-
 {
     char choice;
     cout << "\n\t\t\t------------------------------------------" << endl;

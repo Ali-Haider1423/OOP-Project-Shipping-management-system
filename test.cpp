@@ -42,7 +42,6 @@ public:
     string Get_username();
     string Get_password();
     string Get_adusername();
-    string Get_adpass();
     void Creataccount();
     void loginaccount(string user, string pass);
     void display_available_management();
@@ -52,7 +51,7 @@ class ycustomer : private User
 private:
     string Permanant_adress;
     string Current_location;
-    int phone_number;
+    long long phone_number;
     float advance_payment;
 
 public:
@@ -90,16 +89,25 @@ public:
         cout << "\t\tEnter your gender: ";
         in >> c.gender;
         cout << "\t\tEnter your age: ";
-        in >> c.age;
+        while (!(in >> c.age))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
         cout << "\t\tEnter your Permanent adress: ";
         in >> c.Permanant_adress;
         cout << "\t\tEnter your Current location: ";
         in >> c.Current_location;
         cout << "\t\tEnter your phone number: ";
-        in >> c.phone_number;
+        while (!(in >> c.phone_number))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
     }
 };
-
 class boat
 {
 protected:
@@ -109,7 +117,6 @@ protected:
 
 public:
     boat(){};
-    // virtual void display_all_yatchs() = 0;
 };
 class Itravels
 {
@@ -160,23 +167,117 @@ public:
         cout << "\n\t\tEnter the destination country: ";
         in >> I.country;
         cout << "\n\t\tEnter the Frist class ticket price: ";
-        in >> I.firstclass_price;
+        while (!(in >> I.firstclass_price))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
         cout << "\n\t\tEnter Bussisness class ticket price: ";
-        in >> I.bussisness_price;
+        while (!(in >> I.bussisness_price))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
         cout << "\n\t\tEnter Economy class ticket price: ";
-        in >> I.economy_price;
-        cout << "\n\t\tEnter departure day: ";
-        in >> I.dep_dd;
-        cout << "\n\t\tEnter departure month: ";
-        in >> I.dep_mm;
-        cout << "\n\t\tEnter departure year: ";
-        in >> I.dpe_yyyy;
-        cout << "\n\t\tEnter arival day: ";
-        in >> I.arv_dd;
-        cout << "\n\t\tEnter arival month: ";
-        in >> I.arv_mm;
-        cout << "\n\t\tEnter arival year: ";
-        in >> I.arv_yyyy;
+        while (!(in >> I.economy_price))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
+
+        do
+        {
+            cout << "\n\t\tEnter departure day: ";
+            while (!(in >> I.dep_dd))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (I.dep_dd < 1 || I.dep_dd > 31)
+            {
+                cout << "\n invalid day:";
+            }
+        } while (I.dep_dd < 1 || I.dep_dd > 31);
+
+        do
+        {
+            cout << "\n\t\tEnter departure month: ";
+            while (!(in >> I.dep_mm))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (I.dep_mm < 1 || I.dep_mm > 12)
+            {
+                cout << "\n invalid month:";
+            }
+        } while (I.dep_mm < 1 || I.dep_mm > 12);
+
+        do
+        {
+            cout << "\n\t\tEnter departure year: ";
+            while (!(in >> I.dpe_yyyy))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (I.dpe_yyyy < 2024 || I.dpe_yyyy > 2028)
+            {
+                cout << "\n invalid year:";
+            }
+        } while (I.dpe_yyyy < 2024 || I.dpe_yyyy > 2028);
+
+        do
+        {
+            cout << "\n\t\tEnter arival day: ";
+            while (!(in >> I.arv_dd))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (I.arv_dd < 1 || I.arv_dd > 31)
+            {
+                cout << "\n invalid day:";
+            }
+        } while (I.arv_dd < 1 || I.arv_dd > 31);
+
+        do
+        {
+            cout << "\n\t\tEnter arival month: ";
+            while (!(in >> I.arv_mm))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (I.arv_mm < 1 || I.arv_mm > 12)
+            {
+                cout << "\n invalid month:";
+            }
+        } while (I.arv_mm < 1 || I.arv_mm > 12);
+
+        do
+        {
+            cout << "\n\t\tEnter arival year: ";
+            while (!(in >> I.arv_yyyy))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter an integer: ";
+            }
+            if (I.arv_yyyy < 2024 || I.arv_yyyy > 2028)
+            {
+                cout << "\n invalid yaer:";
+            }
+        } while (I.arv_yyyy < 2024 || I.arv_yyyy > 2028);
+
         cout << "Enter total available tickets: ";
         in >> I.remaining_tickets;
     }
@@ -188,7 +289,7 @@ public:
              << "(" << I.arv_dd << " , " << I.arv_mm << " , " << I.arv_yyyy << ")          " << I.remaining_tickets << endl;
     }
 };
-class Ibookings : private Itravels
+class Ibookings
 {
 private:
     int flag = 0;
@@ -201,7 +302,7 @@ private:
     long long cardnumber;
     int expdate, cvc;
     char choice;
-    int booked_tickets, paid_ammount;
+    int booked_tickets;
 
 public:
     void set_payment();
@@ -213,7 +314,6 @@ public:
     {
         cout << "\n\t\t------------------------------------------" << endl;
         cout << "\t\tName: " << I.name << endl;
-        // cout << "\t\tTotal ammount: " << I.paid_ammount << endl;
         cout << "\t\tPayment status: " << I.status << endl;
         cout << "\t\tTotal booked Tickets: " << I.booked_tickets << endl;
         cout << "\t\tgender: " << I.gender << endl;
@@ -227,18 +327,33 @@ public:
     {
         cout << endl;
         cout << "\t\tEnter your name: ";
-        in >> c.name;
+        while (true)
+        {
+            cout << "Enter a line of text: ";
+            getline(cin, c.name);
+
+            if (c.name.empty())
+            {
+                cout << "Error: Please enter some text." << endl;
+                continue;
+            }
+            break;
+        }
         cout << "\t\tEnter your gender: ";
         in >> c.gender;
         cout << "\t\tEnter your age: ";
-        in >> c.age;
+        while (!(in >> c.age))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
         cout << "\t\tEnter your Permanent adress: ";
         in >> c.Permanant_adress;
         cout << "\t\tEnter your Current location: ";
         in >> c.Current_location;
         cout << "\t\tEnter your phone number: ";
         in >> c.phone_number;
-        // c.paid_ammount = c.set_paid_ammount();
         c.set_payment();
         if (c.flag == 0)
         {
@@ -283,9 +398,19 @@ public:
         cout << "\n\t\tEnter your name: ";
         cin >> c.name;
         cout << "\t\tEnter your CNIC: ";
-        cin >> c.cnic;
+        while (!(in >> c.cnic))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
         cout << "\t\tEnter weight of shipment in kg: ";
-        cin >> c.weight;
+        while (!(in >> c.weight))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter an integer: ";
+        }
         c.payment *= c.weight;
         cout << "\t\tEnter destination: ";
         cin >> c.destination;
@@ -393,8 +518,8 @@ int main()
         cout << "\t\t                    ----------------------------------------------" << endl;
         cout << "\t\t                   |                                              |" << endl;
         cout << "\t\t                   |   1). Management login                       |" << endl;
-        cout << "\t\t                   |   2). Private Reservations                   |" << endl;
-        cout << "\t\t                   |   3). Internamional Travels                  |" << endl;
+        cout << "\t\t                   |   2). Internamional Travels                  |" << endl;
+        cout << "\t\t                   |   3). Private Reservations                   |" << endl;
         cout << "\t\t                   |   4). cargo shipments                        |" << endl;
         cout << "\t\t                   |                                              |" << endl;
         cout << "\t\t                    ----------------------------------------------" << endl;
@@ -472,155 +597,6 @@ int main()
 
             break;
         case 2:
-            do
-            {
-                system("cls");
-                cout << "\t\t\t--------------------------" << endl;
-                cout << "\t\t\t***Private reservations***" << endl;
-                cout << "\t\t\t--------------------------" << endl;
-                cout << "\n1). Add a new yatch" << endl;
-                cout << "2).Available yatch" << endl;
-                cout << "3).Make reservation" << endl;
-                cout << "Enter your option or press 4 to exit...";
-                while (!(cin >> opt))
-                {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "Invalid input. Please enter an integer: ";
-                }
-                switch (opt)
-                {
-                case 1:
-                    system("cls");
-                    cout << "\n\t\t\t\t--------------------------------" << endl;
-                    cout << "\t\t\t\t***Welcome to management page***" << endl;
-                    cout << "\t\t\t\t--------------------------------" << endl;
-                    cout << "\n\t\tEnter your username: ";
-                    cin >> user;
-                    cout << "\n\t\tEnter your password: ";
-                    cin >> pass;
-                    for (int i = 0; i < count; i++)
-                    {
-                        if (user == m[i].Get_username() && pass == m[i].Get_password())
-                        {
-                            cout << "\n\n\t\t\t\t\t\t-------------------" << endl;
-                            cout << "\t\t\t\t\t\t***Add new Yatch***" << endl;
-                            cout << "\t\t\t\t\t\t-------------------" << endl;
-                            cout << "\n\n\t\tEnter make of yatch: ";
-                            cin >> make;
-                            y[yc].set_make(make);
-                            cout << "\t\tEnter model of yatch: ";
-                            while (!(cin >> model))
-                            {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << "Invalid input. Please enter an integer: ";
-                            }
-                            y[yc].set_model(model);
-                            cout << "\t\tEnter varient of yatch: ";
-                            cin >> varient;
-                            y[yc].set_varient(varient);
-                            cout << "\t\tEnter per_day_rent of yatch: ";
-                            while (!(cin >> per_day_rent))
-                            {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << "Invalid input. Please enter an integer: ";
-                            }
-                            y[yc].set_pdr(per_day_rent);
-                            cout << "\t\tEnter size of yatch: ";
-                            while (!(cin >> size))
-                            {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << "Invalid input. Please enter an integer: ";
-                            }
-                            y[yc].set_size(size);
-                            cout << "\t\tEnter design of yatch: ";
-                            cin >> design;
-                            y[yc].set_design(design);
-                            cout << "\t\tEnter Material of yatch: ";
-                            cin >> Material;
-                            y[yc].set_material(Material);
-                            cout << "\t\tEnter speed of yatch: ";
-                            while (!(cin >> speed))
-                            {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << "Invalid input. Please enter an integer: ";
-                            }
-                            y[yc].set_speed(speed);
-                            cout << "\t\tEnter Crew_Capacity of yatch: ";
-                            while (!(cin >> Crew_Capacity))
-                            {
-                                cin.clear();
-                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                                cout << "Invalid input. Please enter an integer: ";
-                            }
-                            y[yc].set_crew_capacity(Crew_Capacity);
-                            cout << "\t\tEnter Flag_and_Registration of yatch: ";
-                            cin >> Flag_and_Registration;
-                            y[yc].set_Flag_and_Registration(Flag_and_Registration);
-                            y[yc].set_id(yc + 1);
-                            yc++;
-                        }
-                    }
-                    break;
-                case 2:
-                    system("cls");
-                    cout << "\t\t\t\t\t--------------------------------" << endl;
-                    cout << "\t\t\t\t\t***Details of Available yatch***" << endl;
-                    cout << "\t\t\t\t\t--------------------------------" << endl;
-                    do
-                    {
-                        for (int i = 0; i < yc; i++)
-                        {
-                            cout << y[i] << endl;
-                        }
-                        cout << "\n\tPress 'q' to exit...";
-                        cin >> choice;
-                    } while (choice != 'q');
-                    break;
-                case 3:
-                    system("cls");
-                    cout << "\t\t\t\t\t--------------------------------" << endl;
-                    cout << "\t\t\t\t\t*********Yacht bookings*********" << endl;
-                    cout << "\t\t\t\t\t--------------------------------" << endl;
-
-                    cout << "\n\n\t\t\tEnter yatch ID: ";
-                    cin >> bid;
-                    cout << "Enter day you want to book: ";
-                    cin >> dd;
-                    cout << "Enter month you want to book: ";
-                    cin >> mm;
-                    cout << "Enter year you want to book: ";
-                    cin >> yyyy;
-                    for (int i = 0; i < yc; i++)
-                    {
-                        if (bid == y[i].get_id())
-                        {
-                            if (y[i].get_day() == dd && y[i].get_mm() == mm && y[i].get_yyyy() == yyyy)
-                            {
-                                do
-                                {
-                                    cout << "\n\t\t\tYacht is already booked for this date" << endl;
-                                    cout << "\t\tPress 'q' to exit....";
-                                    cin >> choice;
-                                } while (choice != 'q');
-                            }
-                            else
-                            {
-                                y[i].set_date(dd, mm, yyyy);
-                                y[i].set_flag(1);
-                                cin >> c[cc];
-                            }
-                        }
-                    }
-                    break;
-                }
-            } while (opt != 4);
-            break;
-        case 3:
             do
             {
                 system("cls");
@@ -749,6 +725,200 @@ int main()
                 }
             } while (opt != 4);
             break;
+        case 3:
+            do
+            {
+                system("cls");
+                cout << "\t\t\t--------------------------" << endl;
+                cout << "\t\t\t***Private reservations***" << endl;
+                cout << "\t\t\t--------------------------" << endl;
+                cout << "\n1). Add a new yatch" << endl;
+                cout << "2).Available yatch" << endl;
+                cout << "3).Make reservation" << endl;
+                cout << "Enter your option or press 4 to exit...";
+                while (!(cin >> opt))
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input. Please enter an integer: ";
+                }
+                switch (opt)
+                {
+                case 1:
+                    system("cls");
+                    cout << "\n\t\t\t\t--------------------------------" << endl;
+                    cout << "\t\t\t\t***Welcome to management page***" << endl;
+                    cout << "\t\t\t\t--------------------------------" << endl;
+                    cout << "\n\t\tEnter your username: ";
+                    cin >> user;
+                    cout << "\n\t\tEnter your password: ";
+                    cin >> pass;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (user == m[i].Get_username() && pass == m[i].Get_password())
+                        {
+                            cout << "\n\n\t\t\t\t\t\t-------------------" << endl;
+                            cout << "\t\t\t\t\t\t***Add new Yatch***" << endl;
+                            cout << "\t\t\t\t\t\t-------------------" << endl;
+                            cout << "\n\n\t\tEnter make of yatch: ";
+                            cin >> make;
+                            y[yc].set_make(make);
+                            cout << "\t\tEnter model of yatch: ";
+                            while (!(cin >> model))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
+                            y[yc].set_model(model);
+                            cout << "\t\tEnter varient of yatch: ";
+                            cin >> varient;
+                            y[yc].set_varient(varient);
+                            cout << "\t\tEnter per_day_rent of yatch: ";
+                            while (!(cin >> per_day_rent))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
+                            y[yc].set_pdr(per_day_rent);
+                            cout << "\t\tEnter size of yatch: ";
+                            while (!(cin >> size))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
+                            y[yc].set_size(size);
+                            cout << "\t\tEnter design of yatch: ";
+                            cin >> design;
+                            y[yc].set_design(design);
+                            cout << "\t\tEnter Material of yatch: ";
+                            cin >> Material;
+                            y[yc].set_material(Material);
+                            cout << "\t\tEnter speed of yatch: ";
+                            while (!(cin >> speed))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
+                            y[yc].set_speed(speed);
+                            cout << "\t\tEnter Crew_Capacity of yatch: ";
+                            while (!(cin >> Crew_Capacity))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
+                            y[yc].set_crew_capacity(Crew_Capacity);
+                            cout << "\t\tEnter Flag_and_Registration of yatch: ";
+                            cin >> Flag_and_Registration;
+                            y[yc].set_Flag_and_Registration(Flag_and_Registration);
+                            y[yc].set_id(yc + 1);
+                            yc++;
+                        }
+                    }
+                    break;
+                case 2:
+                    system("cls");
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    cout << "\t\t\t\t\t***Details of Available yatch***" << endl;
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    do
+                    {
+                        for (int i = 0; i < yc; i++)
+                        {
+                            cout << y[i] << endl;
+                        }
+                        cout << "\n\tPress 'q' to exit...";
+                        cin >> choice;
+                    } while (choice != 'q');
+                    break;
+                case 3:
+                    system("cls");
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+                    cout << "\t\t\t\t\t*********Yacht bookings*********" << endl;
+                    cout << "\t\t\t\t\t--------------------------------" << endl;
+
+                    cout << "\n\n\t\t\tEnter yatch ID: ";
+                    while (!(cin >> bid))
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Invalid input. Please enter an integer: ";
+                    }
+
+                    do
+                    {
+                        cout << "\n\t\tEnter booking day: ";
+                        while (!(cin >> dd))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        if (dd < 1 || dd > 31)
+                        {
+                            cout << "\n invalid day:";
+                        }
+                    } while (dd < 1 || dd > 31);
+
+                    do
+                    {
+                        cout << "\n\t\tEnter booking month: ";
+                        while (!(cin >> mm))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        if (mm < 1 || mm > 12)
+                        {
+                            cout << "\n invalid month:";
+                        }
+                    } while (mm < 1 || mm > 12);
+
+                    do
+                    {
+                        cout << "\n\t\tEnter Booking year: ";
+                        while (!(cin >> yyyy))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
+                        if (yyyy < 2024 || yyyy > 2028)
+                        {
+                            cout << "\n invalid year:";
+                        }
+                    } while (yyyy < 2024 || yyyy > 2028);
+
+                    for (int i = 0; i < yc; i++)
+                    {
+                        if (bid == y[i].get_id())
+                        {
+                            if (y[i].get_day() == dd && y[i].get_mm() == mm && y[i].get_yyyy() == yyyy)
+                            {
+                                do
+                                {
+                                    cout << "\n\t\t\tYacht is already booked for this date" << endl;
+                                    cout << "\t\tPress 'q' to exit....";
+                                    cin >> choice;
+                                } while (choice != 'q');
+                            }
+                            else
+                            {
+                                y[i].set_date(dd, mm, yyyy);
+                                y[i].set_flag(1);
+                                cin >> c[cc];
+                            }
+                        }
+                    }
+                    break;
+                }
+            } while (opt != 4);
+            break;
         case 4:
             system("cls");
             cout << "\n\t\t\t---------------------" << endl;
@@ -773,7 +943,12 @@ int main()
                         cout << "\t\t2)Summary report" << endl;
                         cout << "\t\t3)Search a shipment" << endl;
                         cout << "\t\tPress 4 to go to main menue";
-                        cin >> opt;
+                        while (!(cin >> opt))
+                        {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter an integer: ";
+                        }
                         switch (opt)
                         {
                         case 1:
@@ -804,7 +979,12 @@ int main()
                             cout << "\t\t\t     ******Search a Shipment******    " << endl;
                             cout << "\t\t\t--------------------------------------" << endl;
                             cout << "\n\t\tEnter booking Id: ";
-                            cin >> bid;
+                            while (!(cin >> bid))
+                            {
+                                cin.clear();
+                                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                                cout << "Invalid input. Please enter an integer: ";
+                            }
                             for (int i = 0; i < cargo; i++)
                             {
                                 if (bid == crg[i].get_id())
@@ -839,7 +1019,7 @@ int main()
         }
     } while (opt != 5);
 }
-
+// management class functions
 string management::Get_adusername()
 {
     return adminuser;
@@ -1069,7 +1249,7 @@ void management::display_available_management()
     cout << "\t\t\tCNIC: " << cnic << endl;
     cout << "\t\t\t--------------------" << endl;
 }
-
+// Yacht customers class functions
 void ycustomer::Set_name(string n)
 {
     name = n;
@@ -1126,7 +1306,7 @@ float ycustomer::get_advance_payment()
 {
     return advance_payment;
 }
-
+// yacht class functions
 void yatch::set_make(string n)
 {
     make = n;
@@ -1213,7 +1393,7 @@ int yatch::get_yyyy()
 {
     return yyyy;
 }
-
+// International travels class functions
 void Itravels::set_country(string c)
 {
     country = c;
@@ -1244,7 +1424,6 @@ void Itravels::set_arv_date(int d, int m, int y)
 }
 
 void Ibookings::set_payment()
-
 {
     char choice;
     cout << "\n\t\t\t------------------------------------------" << endl;
